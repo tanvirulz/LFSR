@@ -41,13 +41,19 @@ int main(){
     uint64_t in_bit;
     uint64_t carry;
 
+    
+    /*  a and b combined creates the state register of length 128 bits. 
+        the bits are indexed b_127,b_126, ..., a_63,a_62, ..., a_1, a_0.
+        b_127 is the output bit out_bit. This if the msb of b. 
+        a_0 is the input bit a_0. This is the lsb of a. 
+    */
     uint64_t b;
     uint64_t a;
     
     /* initialize random seed: */
     srand (time(NULL));
     
-    // initialize the lfsr state using pregenerated random seed. 
+    // initialize the lfsr state a random seed. In real application this will be done using a pregenerated random seed. 
     init_rand_register(&a);
     init_rand_register(&b);
 
@@ -55,10 +61,7 @@ int main(){
     printf("%" PRIu64 " \n", a);
     printf("%" PRIu64 " \n", b);
   
-    // a and b combined creates the state register of length 128 bits. 
-    // the bits are indexed b_127,b_126, ..., a_63,a_62, ..., a_1, a_0.
-    // b_127 is the output bit out_bit
-    // a_0 is the input bit a_0
+
     n = 1000 ;
     while (n){
 
@@ -72,7 +75,6 @@ int main(){
         a = (a<<1) | in_bit; 
 
         //print output
-
         printf ("%d",(int)out_bit);
 
         n--;
